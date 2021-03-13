@@ -1,0 +1,11 @@
+.App-LeftMenu {
+    width: 200px;
+    left: 0;
+    background-color: #d6d6d6;
+    height: 100%;
+    position: absolute;
+}
+
+.App-LeftMenu__UserName {
+    margin-left: 12px;
+}
