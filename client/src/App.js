@@ -5,7 +5,7 @@ import TaskScreen from "./TaskScreen/TaskScreen";
 import Fab from "@material-ui/core/Fab";
 import EditIcon from '@material-ui/icons/Edit';
 import TaskDialog from "./TaskScreen/TaskDialog/TaskDialog";
-
+import ShopScreen from "./ShopScreen/ShopScreen";
 
 export class App extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export class App extends Component {
         }
         if(this.state.currentScreen === 'shop') {
             return (
-                <div>shop</div>
+                <ShopScreen/>
             );
         }
         if(this.state.currentScreen === 'stats') {
