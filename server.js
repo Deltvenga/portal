@@ -82,6 +82,6 @@ app.get('/startEvent', (req, res) => {
     setInterval(() => {sendDataToAll({number: counter++})}, 1000);
 });
 
-
+app.use('/', require('./routes/Users'));
 const PORT = 9000;
 app.listen(PORT, () => console.log("server started"));
