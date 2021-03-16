@@ -39,7 +39,7 @@ export class LeftMenu extends Component {
                         <MenuItem onClick={() => {this.handleClose(); this.props.screenChanger('userProfile')}}>Профиль</MenuItem>
                         <MenuItem onClick={() => {this.handleClose()}}>Выйти</MenuItem>
                     </Menu>
-                    <MenuItem onClick={(target) => {this.openUserMenu(target)}}><Avatar alt="Ivanov Ivan" src="/avas/1.jpg" /><div class="App-LeftMenu__UserName">Ivanov Ivan</div></MenuItem>
+                    <MenuItem onClick={(target) => {this.openUserMenu(target)}}><Avatar alt="Ivanov Ivan" src="/avas/1.jpg" /><div className="App-LeftMenu__UserName">Ivanov Ivan</div></MenuItem>
                     <MenuItem onClick={()=> {this.props.screenChanger('taskScreen')}}>Задачи</MenuItem>
                     <MenuItem onClick={()=> {this.props.screenChanger('shop')}}>Магазин</MenuItem>
                     <MenuItem onClick={()=> {this.props.screenChanger('usersList')}}>Сотрудники</MenuItem>
