@@ -6,6 +6,7 @@ import Fab from "@material-ui/core/Fab";
 import EditIcon from '@material-ui/icons/Edit';
 import TaskDialog from "./TaskScreen/TaskDialog/TaskDialog";
 import ShopScreen from "./ShopScreen/ShopScreen";
+import Profile from "./UserProfile/Profile";
 
 export class App extends Component {
     constructor(props) {
@@ -18,27 +19,27 @@ export class App extends Component {
     }
 
     getCurrentScreen() {
-        if(this.state.currentScreen === 'taskScreen') {
+        if (this.state.currentScreen === 'taskScreen') {
             return (
                 <TaskScreen/>
             );
         }
-        if(this.state.currentScreen === 'userProfile') {
+        if (this.state.currentScreen === 'userProfile') {
             return (
-                <div>userProfile</div>
+                <Profile/>
             );
         }
-        if(this.state.currentScreen === 'usersList') {
+        if (this.state.currentScreen === 'usersList') {
             return (
                 <div>usersList</div>
             );
         }
-        if(this.state.currentScreen === 'shop') {
+        if (this.state.currentScreen === 'shop') {
             return (
                 <ShopScreen/>
             );
         }
-        if(this.state.currentScreen === 'stats') {
+        if (this.state.currentScreen === 'stats') {
             return (
                 <div>stats</div>
             );

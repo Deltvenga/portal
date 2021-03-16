@@ -59,7 +59,7 @@ app.get('/events', eventsHandler);
 app.get('/status', (req, res) => res.json({clients: clients.length}));
 
 var Schema = mongoose.Schema;
-mongoose.connect('mongodb+srv://admin:lazeradmin@cluster0.dkanu.mongodb.net/moneyKeeper', {
+mongoose.connect('mongodb+srv://admin:lazeradmin@cluster0.dkanu.mongodb.net/ratPortal', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
