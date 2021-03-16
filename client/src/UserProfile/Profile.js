@@ -28,9 +28,9 @@ export default class Profile extends Component {
         if (userData) {
             var keys = Object.keys(this.state.userData);
             var res = [];
-            keys.forEach((key) => {
+            keys.forEach((key, index) => {
                 res.push(
-                    <div>
+                    <div key={index}>
                         {userData[key]};
                     </div>
                 );
