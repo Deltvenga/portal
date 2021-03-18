@@ -7,11 +7,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import TaskDialog from "./TaskScreen/TaskDialog/TaskDialog";
 import ShopScreen from "./ShopScreen/ShopScreen";
 import Profile from "./UserProfile/Profile";
+import Button from "@material-ui/core/Button";
+import axios from "axios";
 
 export class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            serverNumber: 0,
             currentScreen: 'taskScreen', // taskScreen, userProfile, usersList, shop, ...
             isTaskDialogOpen: false
         }
@@ -41,9 +44,28 @@ export class App extends Component {
         }
         if (this.state.currentScreen === 'stats') {
             return (
-                <div>stats</div>
+                <div>
+                    stats
+                    {this.state.serverNumber}
+                    <Button onClick={() => {this.subscribeToEvents()}} variant="contained">subscribe to events</Button>
+                    <Button onClick={() => {this.sendMessage()}} variant="contained">start spam</Button><br/>
+                </div>
+
             );
         }
+    }
+
+    subscribeToEvents() {
+        const events = new EventSource('http://localhost:9000/events');
+        events.addEventListener('testMessage', (data) => {
+            this.setState({serverNumber: JSON.parse(data.data).number});
+        })
+    }
+
+    sendMessage() {
+        axios.get('http://localhost:9000/startEvent').then((res) => {
+            console.log(res.data)
+        })
     }
 
     screenChanger(newScreen) {

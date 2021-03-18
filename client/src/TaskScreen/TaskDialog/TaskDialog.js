@@ -60,6 +60,16 @@ export class TaskDialog extends Component {
                                 fullWidth
                             />
                         </div>
+                        <div className="App-TaskScreen-TaskDialog__InputBlock">
+                            <TextField
+                                id="date"
+                                label="Дата завершения"
+                                type="date"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </div>
                     </DialogContent>
                     <DialogActions>
                         <Button size="large" color="secondary" onClick={() => {this.handleClose()}}>

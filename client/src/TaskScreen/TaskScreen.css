@@ -1,0 +1,33 @@
+.App-TaskScreen-ListItem__mainBlock {
+    display: flex;
+    justify-content: space-between;
+    height: 48px;
+}
+
+.App-TaskScreen-ListItem__mainBlock-title {
+}
+
+.App-TaskScreen-ListItem__mainBlock-caption {
+    color: #a7a7a7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 24px;
+    width: 100%;
+}
+.App-TaskScreen-ListItem__mainBlock-container {
+    width: 90%;
+}
+
+.App-TaskScreen-ListItem__mainBlock-date {
+    line-height: 48px;
+    width: 10%;
+}
+
+.App-TaskScreen-ListItem__mainBlock-closeDate {
+    color: #e20000;
+}
+
+.App-TaskScreen-ListItem__taskScreen {
+    width: 500px;
+}
