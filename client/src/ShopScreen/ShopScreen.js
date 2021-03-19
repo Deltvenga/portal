@@ -7,7 +7,7 @@ import './ShopScreen.css'
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Card from "@material-ui/core/Card";
-
+import Header from '../Common/Header'
 export default class ShopScreen extends React.Component {
 
     constructor(props) {
@@ -23,7 +23,7 @@ export default class ShopScreen extends React.Component {
     render() {
         return (
             <div className="shopScreen">
-                <div className="testDiv">dgdga</div>
+                <Header/>
                 {this.props.goods.map((item) => {
                     return (
                         <Paper className="shopScreen_paper" elevation={3}>

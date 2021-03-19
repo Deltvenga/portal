@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {Avatar} from "@material-ui/core";
 import './Profile.css';
 import axios from "axios";
-
+import Paper from '@material-ui/core/Paper';
+import Header from '../Common/Header'
+import Achieves from './Achieves';
 
 export default class Profile extends Component {
     constructor(props) {
@@ -42,16 +44,26 @@ export default class Profile extends Component {
 
     render() {
         return (
-            <div className='App-ProfileContainer'>
-                <div>
-                    <Avatar alt="Ivanov Ivan" src="/avas/1.jpg"/>
-                    <span>userLogin</span>
+            <div>
+                <Header/>
+                <div className='App-ProfileContainer'>
+                    <div className='App-AvaContainer'>
+                        <Paper elevation={3}>
+                            <span>Это вы</span>
+                            <Avatar
+                                alt="Ivanov Ivan"
+                                src="/avas/1.jpg"
+                                className="App-ProfileAva"
+                                variant="square"
+                            />
+                            <span>{this.state.userData ? this.state.userData.login: null}</span>
+                            <div>Your level: {this.state.userData ? this.state.userData.level: null}</div>
+                            <div>Your balance: {this.state.userData ? this.state.userData.score: null}</div>
+                            <div>To next level: {this.state.userData ? this.state.userData.reachScore: null}</div>
+                        </Paper>
+                    </div>
                 </div>
-                <div>Your level: 35</div>
-                <div>Your balance: 35 cheese</div>
-                <div>To next level: 2 cheese</div>
-                <div>Achievements:</div>
-                {this.setUserData(this.state.userData)}
+                <Achieves/>
             </div>
         );
     }

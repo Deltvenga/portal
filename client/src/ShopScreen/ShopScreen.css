@@ -6,8 +6,11 @@
     height: 100px;
 }
 
-.shopScreen {
-    margin-left: 30%;
+.shopScreen_container {
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 150px auto 0 auto;
 }
 
 .testDiv {

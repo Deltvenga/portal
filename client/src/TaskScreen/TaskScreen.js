@@ -20,6 +20,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import CheckIcon from '@material-ui/icons/Check';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import green from "@material-ui/core/colors/green";
+import Header from '../Common/Header'
+
 
 export class TaskScreen extends Component {
     constructor(props) {
@@ -132,6 +134,7 @@ export class TaskScreen extends Component {
     render() {
         return (
             <div>
+                <Header/>
                 <SwipeableDrawer
                     anchor={'right'}
                     open={this.state.isTaskOpened}
