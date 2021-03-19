@@ -1,4 +1,4 @@
-.shopScreen_paper{
+.shopScreen_paper {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 10px;
@@ -6,10 +6,10 @@
     height: 100px;
 }
 
-.shopScreen{
+.shopScreen {
     margin-left: 30%;
 }
 
-.testDiv{
+.testDiv {
     color: white
 }

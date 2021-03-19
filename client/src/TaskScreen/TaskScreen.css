@@ -15,6 +15,7 @@
     height: 24px;
     width: 100%;
 }
+
 .App-TaskScreen-ListItem__mainBlock-container {
     width: 90%;
 }
@@ -30,4 +31,17 @@
 
 .App-TaskScreen-ListItem__taskScreen {
     width: 500px;
+}
+
+.App-TaskScreen-ListItem__exceptedTask {
+    font-weight: bold;
+    color: red;
+}
+
+.App-TaskScreen-ListItem__endedAva {
+    background-color: darkseagreen !important;
+}
+
+.App-TaskScreen-ListItem__endedTask {
+    background-color: #e7f6e1 !important;
 }

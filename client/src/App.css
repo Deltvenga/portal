@@ -1,9 +1,9 @@
 .App-mainBlock {
-  margin-left: 200px;
+    margin-left: 200px;
 }
 
 .App-fab {
-  position:absolute;
-  bottom:20px;
-  right:20px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
 }

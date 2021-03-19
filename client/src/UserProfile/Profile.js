@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Avatar} from "@material-ui/core";
 import './Profile.css';
 import axios from "axios";
@@ -12,8 +12,9 @@ export default class Profile extends Component {
         }
         this.loadUserData();
     }
+
     loadUserData() {
-        var self = this;
+        const self = this;
         axios.post('http://localhost:9000/getUserInfo', null, {
             params: {
                 login: 'Ivanov@mail.ru',
@@ -26,8 +27,8 @@ export default class Profile extends Component {
 
     setUserData(userData) {
         if (userData) {
-            var keys = Object.keys(this.state.userData);
-            var res = [];
+            const keys = Object.keys(this.state.userData);
+            const res = [];
             keys.forEach((key, index) => {
                 res.push(
                     <div key={index}>
@@ -49,7 +50,7 @@ export default class Profile extends Component {
                 <div>Your level: 35</div>
                 <div>Your balance: 35 cheese</div>
                 <div>To next level: 2 cheese</div>
-                <div>Achievements: </div>
+                <div>Achievements:</div>
                 {this.setUserData(this.state.userData)}
             </div>
         );

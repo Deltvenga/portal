@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Slider from "@material-ui/core/Slider";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import './LeftMenu.css';
 import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
-
 
 
 export class LeftMenu extends Component {
@@ -29,21 +28,40 @@ export class LeftMenu extends Component {
     render() {
         return (
             <div className="App-LeftMenu">
-                <MenuList  id="menu-list-grow">
+                <MenuList id="menu-list-grow">
                     <Menu
                         anchorEl={this.state.anchorEl}
                         keepMounted
                         open={Boolean(this.state.anchorEl)}
-                        onClose={() => {this.handleClose()}}
+                        onClose={() => {
+                            this.handleClose()
+                        }}
                     >
-                        <MenuItem onClick={() => {this.handleClose(); this.props.screenChanger('userProfile')}}>Профиль</MenuItem>
-                        <MenuItem onClick={() => {this.handleClose()}}>Выйти</MenuItem>
+                        <MenuItem onClick={() => {
+                            this.handleClose();
+                            this.props.screenChanger('userProfile')
+                        }}>Профиль</MenuItem>
+                        <MenuItem onClick={() => {
+                            this.handleClose()
+                        }}>Выйти</MenuItem>
                     </Menu>
-                    <MenuItem onClick={(target) => {this.openUserMenu(target)}}><Avatar alt="Ivanov Ivan" src="/avas/1.jpg" /><div className="App-LeftMenu__UserName">Ivanov Ivan</div></MenuItem>
-                    <MenuItem onClick={()=> {this.props.screenChanger('taskScreen')}}>Задачи</MenuItem>
-                    <MenuItem onClick={()=> {this.props.screenChanger('shop')}}>Магазин</MenuItem>
-                    <MenuItem onClick={()=> {this.props.screenChanger('usersList')}}>Сотрудники</MenuItem>
-                    <MenuItem onClick={()=> {this.props.screenChanger('stats')}}>Статистика</MenuItem>
+                    <MenuItem onClick={(target) => {
+                        this.openUserMenu(target)
+                    }}><Avatar alt="Ivanov Ivan" src="/avas/1.jpg"/>
+                        <div className="App-LeftMenu__UserName">Ivanov Ivan</div>
+                    </MenuItem>
+                    <MenuItem onClick={() => {
+                        this.props.screenChanger('taskScreen')
+                    }}>Задачи</MenuItem>
+                    <MenuItem onClick={() => {
+                        this.props.screenChanger('shop')
+                    }}>Магазин</MenuItem>
+                    <MenuItem onClick={() => {
+                        this.props.screenChanger('usersList')
+                    }}>Сотрудники</MenuItem>
+                    <MenuItem onClick={() => {
+                        this.props.screenChanger('stats')
+                    }}>Статистика</MenuItem>
                 </MenuList>
             </div>
         );

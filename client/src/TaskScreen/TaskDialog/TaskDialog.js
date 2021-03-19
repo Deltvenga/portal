@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -11,8 +11,7 @@ import "./TaskDialog.css"
 export class TaskDialog extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        }
+        this.state = {}
     }
 
     handleClose() {
@@ -26,7 +25,9 @@ export class TaskDialog extends Component {
     render() {
         return (
             <div>
-                <Dialog open={this.props.isOpen} onClose={() => {this.handleClose()}} aria-labelledby="form-dialog-title">
+                <Dialog open={this.props.isOpen} onClose={() => {
+                    this.handleClose()
+                }} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Новая задача</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
@@ -72,10 +73,14 @@ export class TaskDialog extends Component {
                         </div>
                     </DialogContent>
                     <DialogActions>
-                        <Button size="large" color="secondary" onClick={() => {this.handleClose()}}>
+                        <Button size="large" color="secondary" onClick={() => {
+                            this.handleClose()
+                        }}>
                             Отмена
                         </Button>
-                        <Button size="large" onClick={() => {this.handleClose()}} color="primary">
+                        <Button size="large" onClick={() => {
+                            this.handleClose()
+                        }} color="primary">
                             Создать
                         </Button>
                     </DialogActions>
