@@ -73,7 +73,8 @@ const GoodsModel = mongoose.model('goods', new Schema({
 
 app.get('/getGoods', (req, res) => {
     GoodsModel.find({}, function(err, result){
-        console.log(result)
+        console.log(result);
+        res.send(result)
     });
 });
 

@@ -16,7 +16,8 @@ export class App extends Component {
         this.state = {
             serverNumber: 0,
             currentScreen: 'taskScreen', // taskScreen, userProfile, usersList, shop, ...
-            isTaskDialogOpen: false
+            isTaskDialogOpen: false,
+            goods: []
         }
         this.screenChanger.bind(this);
     }
@@ -39,7 +40,8 @@ export class App extends Component {
         }
         if (this.state.currentScreen === 'shop') {
             return (
-                <ShopScreen/>
+                <ShopScreen
+                goods={this.state.goods}/>
             );
         }
         if (this.state.currentScreen === 'stats') {
@@ -70,6 +72,16 @@ export class App extends Component {
 
     screenChanger(newScreen) {
         this.setState({currentScreen: newScreen});
+        if (newScreen === "shop") {
+            var goodsList = [];
+            axios.get('http://localhost:9000/getGoods').then((res) => {
+                for (var i = 0; i < res.data.length; i++){
+                    goodsList.push({_goodId: res.data[i]._id, _goodName: res.data[i]._goodName, _cost: res.data[i]._cost, _remainder: res.data[i]._remainder})
+                }
+                this.setState({goods: goodsList})  
+                console.log("res", this.state.goods)
+            })
+        }
     }
 
     render() {
