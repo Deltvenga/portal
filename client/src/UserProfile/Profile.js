@@ -46,23 +46,22 @@ export default class Profile extends Component {
         return (
             <div>
                 <Header/>
-                <div className='App-ProfileContainer'>
+                <Paper elevation={3}>
                     <div className='App-AvaContainer'>
-                        <Paper elevation={3}>
-                            <span>Это вы</span>
                             <Avatar
                                 alt="Ivanov Ivan"
                                 src="/avas/1.jpg"
                                 className="App-ProfileAva"
                                 variant="square"
                             />
-                            <span>{this.state.userData ? this.state.userData.login: null}</span>
-                            <div>Your level: {this.state.userData ? this.state.userData.level: null}</div>
-                            <div>Your balance: {this.state.userData ? this.state.userData.score: null}</div>
-                            <div>To next level: {this.state.userData ? this.state.userData.reachScore: null}</div>
-                        </Paper>
+                        <div className='App-AvaInfo'>
+                            <span> Login: {this.state.userData ? this.state.userData.login: null}</span>
+                            <p>Level: {this.state.userData ? this.state.userData.level: null}</p>
+                            <p>Balance: {this.state.userData ? this.state.userData.score: null}</p>
+                            <p>To next level: {this.state.userData ? this.state.userData.reachScore: null}</p>
+                        </div>
                     </div>
-                </div>
+                </Paper>
                 <Achieves/>
             </div>
         );

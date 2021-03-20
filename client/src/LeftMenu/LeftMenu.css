@@ -3,7 +3,7 @@
     left: 0;
     background-color: #d6d6d6;
     height: 100%;
-    position: absolute;
+    position: fixed;
 }
 
 .App-LeftMenu__UserName {
