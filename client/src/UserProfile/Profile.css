@@ -7,7 +7,6 @@
 }
 .App-AvaContainer {
     display: flex;
-    justify-content: space-between;
 }
 
 .App-AvaInfo {
