@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Button from "@material-ui/core/Button";
-import axios from "axios";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
@@ -17,7 +16,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import CheckIcon from '@material-ui/icons/Check';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import green from "@material-ui/core/colors/green";
 import Header from '../Common/Header'
@@ -26,7 +24,7 @@ import Header from '../Common/Header'
 export class TaskScreen extends Component {
     constructor(props) {
         super(props);
-        this.classes = makeStyles((theme) => ({
+        this.classes = makeStyles(() => ({
             green: {
                 color: '#fff',
                 backgroundColor: green[500],
@@ -96,7 +94,7 @@ export class TaskScreen extends Component {
         let utc1 = Date.UTC(recDate.getFullYear(), recDate.getMonth(), recDate.getDate());
         let utc2 = Date.UTC(curDate.getFullYear(), curDate.getMonth(), curDate.getDate());
         let diffDays = Math.ceil((utc1 - utc2) / (1000 * 60 * 60 * 24));
-        let dateFormatted = `${pad2(recDate.getDate())}.${pad2(recDate.getMonth())}.${recDate.getFullYear()}`
+        let dateFormatted = `${pad2(recDate.getDate())}.${pad2(recDate.getMonth()+1)}.${recDate.getFullYear()}`
 
         if (value.ended) {
             return (
