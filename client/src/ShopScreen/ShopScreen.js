@@ -14,6 +14,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 import './ShopScreen.css';
 
+import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Header from '../Common/Header'
 export default class ShopScreen extends React.Component {
