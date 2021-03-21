@@ -21,9 +21,11 @@ export default class ShopScreen extends React.Component {
     constructor(props) {
         super(props);
     }
-
+    
     state = {
-        anchorEl: null,
+        isErrorDialogOpen: false,
+        altDialog: "",
+        altDialogTitle: ""
     }
 //    getGoods = (e) => {
 //        axios.get('http://localhost:9000/getGoods').then((res) => {
@@ -32,12 +34,17 @@ export default class ShopScreen extends React.Component {
 //    }
 
     checkScore = (e) => {
-        if (this.props.userScore < e)
-            console.log("err")
+        if (this.props.userData.score < e)
+        {
+            console.log("err");
+            this.setState({isErrorDialogOpen: true, altDialog: "Бомж", altDialogTitle: "Ошибка"})
+        }
+        else this.setState({isErrorDialogOpen: true, altDialog: "Красава, заберешь у главного", altDialogTitle: "Молодец"})
+            
     }
     
-    handleClose = () => {
-        this.setState({anchorEl: null});
+    handleClose() {
+        this.setState({isErrorDialogOpen: false})
     };
 
     
@@ -46,20 +53,37 @@ export default class ShopScreen extends React.Component {
             <div className="shopScreen">
                 {this.props.goods.map((item) => {
                     return (
-                        <Grid className="shopScreen_grid" container wrap="nowrap" spacing={2}>
-                            <Grid className="shopScreen_grid_item" item>
-                                <Card>
-                                    <CardContent>
-                                        <Typography noWrap>{item._goodName}</Typography> 
-                                        <Typography noWrap>{item._cost}</Typography>
-                                        <Typography noWrap>{item._remainder}</Typography>
-                                        <Button size="small" onClick={() => {this.checkScore(item._cost)}}>Купить</Button>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        </Grid>
+                        <Card className="shopScreen_grid_item_card">
+                            <CardContent>
+                                <img width="100" height="100" src="https://www.ikea.com/ru/ru/images/products/fanbyn-fanbyun-stul-belyy-d-doma-ulicy__0545007_pe655282_s5.jpg"></img>
+                            </CardContent>   
+                            <CardContent className="shopScreen_grid_item_content">
+                                <Typography variant="h6" gutterBottom noWrap>{item._goodName}</Typography> 
+                                <Typography noWrap>
+                                    {item._cost}
+                                    <img src="/avas/cheese.svg"></img>
+                                </Typography>
+                                <Typography noWrap>{item._remainder} шт.</Typography>
+                                <Button size="small" color="primary" onClick={() => {this.checkScore(item._cost)}}>Купить</Button>
+                            </CardContent>
+                        </Card>         
                     )
                 })}
+                <Dialog open={this.state.isErrorDialogOpen} onClose={() => {this.handleClose()}} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">{this.state.altDialogTitle}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                                    {this.state.altDialog}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button size="large" color="secondary" onClick={() => {
+                            this.handleClose()
+                        }}>
+                                Ок
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     }

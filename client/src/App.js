@@ -19,9 +19,12 @@ export class App extends Component {
             currentScreen: 'taskScreen', // taskScreen, userProfile, usersList, shop, ...
             isTaskDialogOpen: false,
             goods: [],
-            userScore: 5
+            userScore: 0,
+            userLogin: "Ivanov@mail.ru",
+            userData: null
         }
         this.screenChanger.bind(this);
+        this.loadUserData();
     }
 
     getCurrentScreen() {
@@ -44,7 +47,8 @@ export class App extends Component {
             return (
                 <ShopScreen
                     goods={this.state.goods}
-                    userScore={this.state.userScore}/>
+                    userScore={this.state.userScore}
+                    userData={this.state.userData}/>
             );
         }
         if (this.state.currentScreen === 'stats') {
@@ -94,6 +98,18 @@ export class App extends Component {
                 console.log("res", this.state.goods)
             })
         }
+    }
+
+    loadUserData() {
+        const self = this;
+        axios.post('http://localhost:9000/getUserInfo', null, {
+            params: {
+                login: 'Ivanov@mail.ru',
+            }
+        }).then((data) => {
+            console.log(data);
+            self.setState({userData: data.data[0]})
+        });
     }
 
     render() {

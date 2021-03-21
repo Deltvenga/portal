@@ -13,3 +13,38 @@
 .shopScreen_grid_item{
     width: 550px;
 }
+
+.shopScreen_grid {
+
+}
+
+.shopScreen_cardMedia{
+    width: 10px;
+    
+}
+
+.shopScreen_grid_item img{
+    margin: auto;
+}
+
+.shopScreen_grid_item_card{
+    display: flex;
+    flex-direction: row;
+    max-width: 400px;
+    min-width: 250px;
+    flex-grow: 1;
+    margin-left: 20px;
+    margin-top: 30px;
+    margin-right: 10px
+}
+
+.shopScreen_grid_item_content img{
+    width: 17px;
+    height: 17px;
+    padding-left: 4px;
+}
+
+.shopScreen {
+    display: flex; 
+    flex-wrap: wrap;
+}
