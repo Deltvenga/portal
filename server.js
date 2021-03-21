@@ -1,14 +1,17 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const fs = require('fs');
 const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const multer = require("multer");
 
 app.use(cors());
 
 let clients = [];
+
 function eventsHandler(req, res, next) {
     const headers = {
         'Content-Type': 'text/event-stream',
@@ -37,7 +40,7 @@ function sendDataToAll(data) {
 
 function sendDataToUser(userId, data) {
     clients.forEach((c) => {
-        if(c.id === userId) {
+        if (c.id === userId) {
             c.res.write(`event: testMessage\nid: ${userId}\ndata: ${JSON.stringify(data)}\n\n`)
         }
     });
@@ -45,7 +48,7 @@ function sendDataToUser(userId, data) {
 
 function sendEventToUser(event, userId, data) {
     clients.forEach((c) => {
-        if(c.id === userId) {
+        if (c.id === userId) {
             c.res.write(`event: ${event}\nid: ${userId}\ndata: ${JSON.stringify(data)}\n\n`)
         }
     });
@@ -72,7 +75,7 @@ const GoodsModel = mongoose.model('goods', new Schema({
 }));
 
 app.get('/getGoods', (req, res) => {
-    GoodsModel.find({}, function(err, result){
+    GoodsModel.find({}, function (err, result) {
         console.log(result);
         res.send(result)
     });
@@ -80,7 +83,57 @@ app.get('/getGoods', (req, res) => {
 
 let counter = 0;
 app.get('/startEvent', (req, res) => {
-    setInterval(() => {sendDataToAll({number: counter++})}, 1000);
+    setInterval(() => {
+        sendDataToAll({number: counter++})
+    }, 1000);
+});
+
+
+const handleError = (err, res) => {
+    res
+        .status(500)
+        .contentType("text/plain")
+        .end("Oops! Something went wrong!");
+};
+
+const upload = multer({
+    dest: "/files"
+});
+
+let lastFileName = "";
+app.post("/upload",
+    upload.single("file"),
+    (req, res) => {
+        const tempPath = req.file.path;
+        const targetPath = path.join(__dirname, "./uploads/" + req.file.originalname);
+        lastFileName = req.file.originalname;
+        const allowedFormats = ['.png', '.jpg', '.jpeg', '.gif', '.tiff'];
+        if (allowedFormats.indexOf(path.extname(req.file.originalname).toLowerCase()) !== -1) {
+            fs.rename(tempPath, targetPath, err => {
+                if (err) return handleError(err, res);
+                res
+                    .status(200)
+                    .contentType("text/plain")
+                    .end("File uploaded!");
+            });
+        } else {
+            fs.unlink(tempPath, err => {
+                if (err) return handleError(err, res);
+
+                res
+                    .status(403)
+                    .contentType("text/plain")
+                    .end("Not allowed format!");
+            });
+        }
+    }
+);
+
+
+app.get("/lastFile.jpg", (req, res) => {
+    console.log(lastFileName + "___");
+    console.log(path.join(__dirname, `./uploads/`, lastFileName))
+    res.sendFile(path.join(__dirname, `./uploads/`, lastFileName));
 });
 
 app.use('/', require('./routes/Users'));
