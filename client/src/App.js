@@ -17,7 +17,8 @@ export class App extends Component {
             serverNumber: 0,
             currentScreen: 'taskScreen', // taskScreen, userProfile, usersList, shop, ...
             isTaskDialogOpen: false,
-            goods: []
+            goods: [],
+            userScore: 5
         }
         this.screenChanger.bind(this);
     }
@@ -41,7 +42,8 @@ export class App extends Component {
         if (this.state.currentScreen === 'shop') {
             return (
                 <ShopScreen
-                    goods={this.state.goods}/>
+                    goods={this.state.goods}
+                    userScore={this.state.userScore}/>
             );
         }
         if (this.state.currentScreen === 'stats') {
