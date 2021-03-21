@@ -10,6 +10,7 @@ import Profile from "./UserProfile/Profile";
 import Header from "./Common/Header"
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import UserList from "./UserList/UserList";
 
 export class App extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ export class App extends Component {
         }
         if (this.state.currentScreen === 'usersList') {
             return (
-                <div>usersList</div>
+                <UserList/>
             );
         }
         if (this.state.currentScreen === 'shop') {
