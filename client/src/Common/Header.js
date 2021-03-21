@@ -11,6 +11,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import './Header.css';
+import Helmet from 'react-helmet'
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -52,7 +54,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PrimarySearchAppBar() {
+const HEADERS = {
+    userProfile : 'Профиль',
+    taskScreen : 'Задачи',
+    shop : 'Магазин',
+    usersList : 'Сотрудники',
+    stats : 'Статистика'
+}
+export default function PrimarySearchAppBar(args) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -136,10 +145,13 @@ export default function PrimarySearchAppBar() {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static">
+            <Helmet>
+                <title>{args.headerTitle ? HEADERS[args.headerTitle] : null}</title>
+            </Helmet>
+            <AppBar position="static" className='App-Header'>
                 <Toolbar>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        {/*здесь может быть тайтл*/}
+                        {args.headerTitle ? HEADERS[args.headerTitle] : null}
                     </Typography>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>

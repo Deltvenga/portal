@@ -132,7 +132,6 @@ export class TaskScreen extends Component {
     render() {
         return (
             <div>
-                <Header/>
                 <SwipeableDrawer
                     anchor={'right'}
                     open={this.state.isTaskOpened}

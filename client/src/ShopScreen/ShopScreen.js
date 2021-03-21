@@ -14,7 +14,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 import './ShopScreen.css';
 
-import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Header from '../Common/Header'
 export default class ShopScreen extends React.Component {
@@ -45,7 +44,6 @@ export default class ShopScreen extends React.Component {
     render() {
         return (
             <div className="shopScreen">
-                <Header/>
                 {this.props.goods.map((item) => {
                     return (
                         <Grid className="shopScreen_grid" container wrap="nowrap" spacing={2}>

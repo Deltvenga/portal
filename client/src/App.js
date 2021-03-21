@@ -7,6 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import TaskDialog from "./TaskScreen/TaskDialog/TaskDialog";
 import ShopScreen from "./ShopScreen/ShopScreen";
 import Profile from "./UserProfile/Profile";
+import Header from "./Common/Header"
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 
@@ -98,6 +99,7 @@ export class App extends Component {
     render() {
         return (
             <div>
+                <Header headerTitle={this.state.currentScreen}/>
                 <LeftMenu screenChanger={(newScreen) => {
                     this.screenChanger(newScreen)
                 }}/>

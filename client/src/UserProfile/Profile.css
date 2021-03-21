@@ -1,8 +1,8 @@
 .App-ProfileAva {
     height: 240px!important;
     width: 240px!important;
-    border: 15px solid #3f51b5;
-    border-radius: 45px!important;
+    border: 9px solid cornflowerblue;
+    border-radius: 125px!important;
     margin: 15px;
 }
 .App-AvaContainer {

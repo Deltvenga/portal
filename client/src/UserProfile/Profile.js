@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
-import {Avatar} from "@material-ui/core";
+import React from 'react';
+import Avatar from "@material-ui/core/Avatar";
 import './Profile.css';
 import axios from "axios";
 import Paper from '@material-ui/core/Paper';
-import Header from '../Common/Header'
 import Achieves from './Achieves';
 
-export default class Profile extends Component {
+export default class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -45,7 +44,6 @@ export default class Profile extends Component {
     render() {
         return (
             <div>
-                <Header/>
                 <Paper elevation={3}>
                     <div className='App-AvaContainer'>
                             <Avatar
