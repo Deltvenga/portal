@@ -62,6 +62,9 @@ export class LeftMenu extends Component {
                     <MenuItem onClick={() => {
                         this.props.screenChanger('stats')
                     }}>Статистика</MenuItem>
+                    <MenuItem onClick={() => {
+                        this.props.screenChanger('control')
+                    }}>Управление</MenuItem>
                 </MenuList>
             </div>
         );

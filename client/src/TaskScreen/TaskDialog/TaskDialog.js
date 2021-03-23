@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import "./TaskDialog.css"
+import axios from "axios";
 
 export class TaskDialog extends Component {
     constructor(props) {
@@ -15,12 +16,25 @@ export class TaskDialog extends Component {
     }
 
     handleClose() {
-        this.props.close();
+        axios.post('http://localhost:9000/newTask', null, {
+            params: {
+                targetUserId: "6050c91025b4d348d59f8c88",
+                title: "тест отправки",
+                description: "тест описания",
+                ownerId: "6050c91025b4d348d59f8c88",
+                endDate: "03-18-21",
+            }
+        }).then((response) => {
+            console.log(response);
+            this.props.close();
+        })
     };
 
     handleOpen() {
 
     };
+
+
 
     render() {
         return (

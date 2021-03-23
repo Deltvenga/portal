@@ -56,11 +56,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HEADERS = {
-    userProfile : 'Профиль',
-    taskScreen : 'Задачи',
-    shop : 'Магазин',
-    usersList : 'Сотрудники',
-    stats : 'Статистика'
+    userProfile: 'Профиль',
+    taskScreen: 'Задачи',
+    shop: 'Магазин',
+    usersList: 'Сотрудники',
+    stats: 'Статистика',
+    control: 'Управление'
 }
 export default function PrimarySearchAppBar(args) {
     const classes = useStyles();
@@ -91,10 +92,10 @@ export default function PrimarySearchAppBar(args) {
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
             id={menuId}
             keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{vertical: 'top', horizontal: 'right'}}
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
@@ -107,17 +108,17 @@ export default function PrimarySearchAppBar(args) {
     const renderMobileMenu = (
         <Menu
             anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
             id={mobileMenuId}
             keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{vertical: 'top', horizontal: 'right'}}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
                 <IconButton aria-label="show 4 new mails" color="inherit">
                     <Badge badgeContent={4} color="secondary">
-                        <MailIcon />
+                        <MailIcon/>
                     </Badge>
                 </IconButton>
                 <p>Messages</p>
@@ -125,7 +126,7 @@ export default function PrimarySearchAppBar(args) {
             <MenuItem>
                 <IconButton aria-label="show 11 new notifications" color="inherit">
                     <Badge badgeContent={11} color="secondary">
-                        <NotificationsIcon />
+                        <NotificationsIcon/>
                     </Badge>
                 </IconButton>
                 <p>Notifications</p>
@@ -137,7 +138,7 @@ export default function PrimarySearchAppBar(args) {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle />
+                    <AccountCircle/>
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
@@ -154,16 +155,16 @@ export default function PrimarySearchAppBar(args) {
                     <Typography className={classes.title} variant="h6" noWrap>
                         {args.headerTitle ? HEADERS[args.headerTitle] : null}
                     </Typography>
-                    <div className={classes.grow} />
+                    <div className={classes.grow}/>
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
+                                <MailIcon/>
                             </Badge>
                         </IconButton>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
                             <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
+                                <NotificationsIcon/>
                             </Badge>
                         </IconButton>
                     </div>
@@ -175,7 +176,7 @@ export default function PrimarySearchAppBar(args) {
                             onClick={handleMobileMenuOpen}
                             color="inherit"
                         >
-                            <MoreIcon />
+                            <MoreIcon/>
                         </IconButton>
                     </div>
                 </Toolbar>

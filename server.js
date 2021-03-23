@@ -7,6 +7,7 @@ const MongoClient = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const multer = require("multer");
+const Task = require('./models/Task');
 
 app.use(cors());
 
@@ -48,9 +49,8 @@ function sendDataToUser(userId, data) {
 
 function sendEventToUser(event, userId, data) {
     clients.forEach((c) => {
-        if (c.id === userId) {
-            c.res.write(`event: ${event}\nid: ${userId}\ndata: ${JSON.stringify(data)}\n\n`)
-        }
+        console.log(c);
+        c.res.write(`event: ${event}\nid: ${userId}\ndata: ${JSON.stringify(data)}\n\n`)
     });
 }
 
@@ -76,7 +76,6 @@ const GoodsModel = mongoose.model('goods', new Schema({
 
 app.get('/getGoods', (req, res) => {
     GoodsModel.find({}, function (err, result) {
-        console.log(result);
         res.send(result)
     });
 });
@@ -131,6 +130,27 @@ app.post("/upload",
         }
     }
 );
+
+app.post('/newTask', async (req, res) => {
+    const newTask = new Task({
+        currentUserId: req.query.targetUserId,
+        title: req.query.title,
+        description: req.query.description,
+        ownerId: req.query.currentUserId,
+        endDate: req.query.endDate,
+        currentState: 0
+    });
+    await newTask.save().then((data) => {
+        sendEventToUser("newTask", req.query.targetUserId, {description: "Тебе задача!"});
+        res.send(data);
+    });
+});
+
+app.post('/getTasks', (req, res) => {
+    Task.find({currentUserId: req.query.userId}).then(result => {
+        res.send(result);
+    });
+});
 
 
 app.get("/getAva", (req, res) => {

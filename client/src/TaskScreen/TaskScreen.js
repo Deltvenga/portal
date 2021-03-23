@@ -19,6 +19,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import green from "@material-ui/core/colors/green";
 import Header from '../Common/Header'
+import axios from "axios";
 
 
 export class TaskScreen extends Component {
@@ -40,47 +41,27 @@ export class TaskScreen extends Component {
                 additionalData: "Надо добавить большое описание задачи, желательно совсем большое"
             },
             isTaskOpened: false,
-            data: [
-                {
-                    id: 0,
-                    date: '03-18-21',
-                    title: "Задача № 1, добавить реестр задач",
-                    additionalData: "Надо добавить большое описание задачи, желательно совсем большое",
-                    ended: false,
-                    checked: false
-                }, {
-                    id: 1,
-                    date: '03-19-21',
-                    title: "Задача № 1, добавить реестр задач",
-                    additionalData: "Надо добавить большое описание задачи, желательно совсем большое Надо добавить большое описание задачи, желательно совсем большое Надо добавить большое описание задачи, желательно совсем большое",
-                    ended: true,
-                    checked: false
-                }, {
-                    id: 2,
-                    date: '03-19-21',
-                    title: "Задача № 1, добавить реестр задач",
-                    additionalData: "Надо добавить большое описание задачи, желательно совсем большое",
-                    ended: false,
-                    checked: false
-                }, {
-                    id: 3,
-                    date: '03-30-21',
-                    title: "Задача № 1, добавить реестр задач",
-                    additionalData: "Надо добавить большое описание задачи, желательно совсем большое",
-                    ended: false,
-                    checked: false
-                }, {
-                    id: 4,
-                    date: '03-19-21',
-                    title: "Задача № 1, добавить реестр задач",
-                    additionalData: "Надо добавить большое описание задачи, желательно совсем большое",
-                    ended: true,
-                    checked: false
-                },
-            ]
-
         }
+        this.loadTasksData();
 
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.taskCount !== this.props.taskCount) {
+            this.loadTasksData();
+        }
+    }
+
+    loadTasksData() {
+        const self = this;
+        axios.post('http://localhost:9000/getTasks', null, {
+            params: {
+                userId: this.props.userId,
+            }
+        }).then((data) => {
+            console.log(data);
+            self.setState({data: data.data})
+        });
     }
 
     getFormattedDate(value) {
@@ -89,7 +70,7 @@ export class TaskScreen extends Component {
             return (n < 10 ? '0' : '') + n;
         }
 
-        let recDate = new Date(value.date);
+        let recDate = new Date(value.endDate);
         let curDate = new Date();
         let utc1 = Date.UTC(recDate.getFullYear(), recDate.getMonth(), recDate.getDate());
         let utc2 = Date.UTC(curDate.getFullYear(), curDate.getMonth(), curDate.getDate());
@@ -132,29 +113,32 @@ export class TaskScreen extends Component {
     render() {
         return (
             <div>
-                <SwipeableDrawer
-                    anchor={'right'}
-                    open={this.state.isTaskOpened}
-                    onClose={() => {
-                        this.setState({isTaskOpened: false})
-                    }}>
-                    <Card variant="outlined">
-                        <CardContent>
-                            <div className="App-TaskScreen-ListItem__taskScreen">
-                                <div>test</div>
-                                <div>{this.state.curTask.title}</div>
-                                <div>{this.state.curTask.additionalData}</div>
-                            </div>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small" onClick={() => {
-                                this.setState({isTaskOpened: false})
-                            }}>
-                                Закрыть
-                            </Button>
-                        </CardActions>
-                    </Card>
-                </SwipeableDrawer>
+                { this.state.curTask ? (
+                    <SwipeableDrawer
+                        anchor={'right'}
+                        open={this.state.isTaskOpened}
+                        onClose={() => {
+                            this.setState({isTaskOpened: false})
+                        }}>
+                        <Card variant="outlined">
+                            <CardContent>
+                                <div className="App-TaskScreen-ListItem__taskScreen">
+                                    <div>test</div>
+                                    <div>{this.state.curTask.title}</div>
+                                    <div>{this.state.curTask.additionalData}</div>
+                                </div>
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small" onClick={() => {
+                                    this.setState({isTaskOpened: false})
+                                }}>
+                                    Закрыть
+                                </Button>
+                            </CardActions>
+                        </Card>
+                    </SwipeableDrawer>
+                ) : '' }
+
                 <Paper>
                     <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
                         <Button disabled={true}>Выделено: 0</Button>
@@ -178,7 +162,7 @@ export class TaskScreen extends Component {
                     </ButtonGroup>
                 </Paper>
                 <List>
-                    {this.state.data.map((value) => {
+                    {this.state.data && this.state.data.map((value) => {
                         return (this.state.showEnded && value.ended) || !value.ended ? (
                             <ListItem
                                 className={this.state.showEnded && value.ended ? 'App-TaskScreen-ListItem__endedTask' : ''}
