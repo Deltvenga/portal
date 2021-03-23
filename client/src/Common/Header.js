@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         display: 'none',
+        color: '#000000',
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },

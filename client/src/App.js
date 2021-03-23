@@ -24,11 +24,16 @@ export class App extends Component {
             isTaskDialogOpen: false,
             goods: [],
             userScore: 0,
+            imageId: 0,
             userLogin: "Ivanov@mail.ru",
             userData: null
         }
         this.screenChanger.bind(this);
         this.loadUserData();
+    }
+
+    changeImageState() {
+        this.setState({imageId: this.state.imageId + 1});
     }
 
     getCurrentScreen() {
@@ -39,7 +44,10 @@ export class App extends Component {
         }
         if (this.state.currentScreen === 'userProfile') {
             return (
-                <Profile/>
+                <Profile
+                    changeImage={() => {this.changeImageState()}}
+                    imageId={this.state.imageId}
+                    userData={this.state.userData}/>
             );
         }
         if (this.state.currentScreen === 'usersList') {
@@ -67,7 +75,7 @@ export class App extends Component {
                         this.sendMessage()
                     }} variant="contained">start spam</Button><br/>
                         <input type="file" name="file" onChange={(e) => {this.processImage(e)}}/>
-                        <img src="http://localhost:9000/lastFile.jpg" />
+                        <img src={'http://localhost:9000/getAva?userId=' + this.state.userData._id + "&imageId=" + this.state.imageId} />
                 </div>
 
             );
@@ -137,7 +145,11 @@ export class App extends Component {
         return (
             <div>
                 <Header headerTitle={this.state.currentScreen}/>
-                <LeftMenu screenChanger={(newScreen) => {
+                <LeftMenu
+                    changeImage={() => {this.changeImageState()}}
+                    imageId={this.state.imageId}
+                    userId={this.state.userData && this.state.userData._id}
+                    screenChanger={(newScreen) => {
                     this.screenChanger(newScreen)
                 }}/>
                 <div className="App-mainBlock">

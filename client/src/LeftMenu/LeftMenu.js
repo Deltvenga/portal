@@ -47,7 +47,7 @@ export class LeftMenu extends Component {
                     </Menu>
                     <MenuItem onClick={(target) => {
                         this.openUserMenu(target)
-                    }}><Avatar alt="Ivanov Ivan" src="/avas/1.jpg"/>
+                    }}><Avatar alt="Ivanov Ivan" src={'http://localhost:9000/getAva?userId=' + this.props.userId + "&imageId=" + this.props.imageId}/>
                         <div className="App-LeftMenu__UserName">Ivanov Ivan</div>
                     </MenuItem>
                     <MenuItem onClick={() => {

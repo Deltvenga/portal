@@ -1,8 +1,6 @@
 .App-ProfileAva {
     height: 240px!important;
     width: 240px!important;
-    border: 9px solid cornflowerblue;
-    border-radius: 125px!important;
     margin: 15px;
 }
 .App-AvaContainer {
@@ -12,3 +10,11 @@
 .App-AvaInfo {
     align-self: center;
  }
+
+.App-AvaChanger {
+    line-height: 240px;
+}
+
+.App-AvainputBlock {
+    display: none;
+}

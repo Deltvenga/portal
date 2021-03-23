@@ -105,7 +105,10 @@ app.post("/upload",
     upload.single("file"),
     (req, res) => {
         const tempPath = req.file.path;
-        const targetPath = path.join(__dirname, "./uploads/" + req.file.originalname);
+        const targetFileTypeTemp = req.file.originalname.split('.');
+        const targetFileType = targetFileTypeTemp[targetFileTypeTemp.length - 1];
+        const targetName = req.body.userId + "." + targetFileType;
+        const targetPath = path.join(__dirname, "./uploads/" + targetName);
         lastFileName = req.file.originalname;
         const allowedFormats = ['.png', '.jpg', '.jpeg', '.gif', '.tiff'];
         if (allowedFormats.indexOf(path.extname(req.file.originalname).toLowerCase()) !== -1) {
@@ -130,10 +133,13 @@ app.post("/upload",
 );
 
 
-app.get("/lastFile.jpg", (req, res) => {
-    console.log(lastFileName + "___");
-    console.log(path.join(__dirname, `./uploads/`, lastFileName))
-    res.sendFile(path.join(__dirname, `./uploads/`, lastFileName));
+app.get("/getAva", (req, res) => {
+    fs.readdirSync(path.join(__dirname, `./uploads`)).forEach(file => {
+        if(file.split(".")[0] === req.query.userId) {
+            res.sendFile(path.join(__dirname, `./uploads/`, file));
+            return null;
+        }
+    });
 });
 
 app.use('/', require('./routes/Users'));
