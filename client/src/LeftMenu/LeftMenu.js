@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Slider from "@material-ui/core/Slider";
 import MenuList from "@material-ui/core/MenuList";
 import MenuItem from "@material-ui/core/MenuItem";
 import './LeftMenu.css';

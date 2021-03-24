@@ -155,9 +155,11 @@ app.post('/getTasks', (req, res) => {
 
 app.get("/getAva", (req, res) => {
     fs.readdirSync(path.join(__dirname, `./uploads`)).forEach(file => {
-        if(file.split(".")[0] === req.query.userId) {
+        if (file.split(".")[0] === req.query.userId) {
             res.sendFile(path.join(__dirname, `./uploads/`, file));
             return null;
+        } else {
+            res.send(undefined);
         }
     });
 });
@@ -187,6 +189,7 @@ app.post('/createUser', (req, res) => {
         password: req.query.userPassword
     }, function(err, result){
         console.log(err)
+        res.send({success:true});
     });
 });
 
