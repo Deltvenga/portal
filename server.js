@@ -35,7 +35,7 @@ function eventsHandler(req, res, next) {
 
 function sendDataToAll(data) {
     clients.forEach((c) => {
-        c.res.write(`event: testMessage\nid: ${c.id}\ndata: ${JSON.stringify(data)}\n\n`)
+        c.res.write(`event: testMessage\nid: ${c.id}\ndata: ${JSON.stringify(data)}\n\n`);
     });
 }
 

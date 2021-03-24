@@ -47,7 +47,7 @@ export class TaskScreen extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.taskCount !== this.props.taskCount) {
+        if (prevProps.taskCount !== this.props.taskCount || prevProps.userId !== this.props.userId) {
             this.loadTasksData();
         }
     }

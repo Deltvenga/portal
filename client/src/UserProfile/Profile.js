@@ -80,7 +80,7 @@ export default class Profile extends React.Component {
                                 <Avatar
                                     className="App-ProfileAva"
                                     alt="Ivanov Ivan"
-                                    src={'http://localhost:9000/getAva?userId=' + this.props.userData._id + "&imageId=" + this.props.imageId}
+                                    src={this.props.userData._id ? `http://localhost:9000/getAva?userId=${this.props.userData._id}&imageId=${this.props.imageId}` : ''}
                                 />
                             </IconButton>
                         </label>
