@@ -196,7 +196,8 @@ export class App extends Component {
                         _goodId: res.data[i]._id,
                         _goodName: res.data[i]._goodName,
                         _cost: res.data[i]._cost,
-                        _remainder: res.data[i]._remainder
+                        _remainder: res.data[i]._remainder,
+                        _img: res.data[i]._img
                     })
                 }
                 this.setState({goods: goodsList})

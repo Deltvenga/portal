@@ -33,7 +33,7 @@ export default class ShopScreen extends React.Component {
 //        })
 //    }
 
-    checkScore = (e) => {
+    checkScore = (e, goodId, remainder) => {
         if (this.props.userData.score < e)
         {
             console.log("err");
@@ -44,7 +44,9 @@ export default class ShopScreen extends React.Component {
             axios.post('http://localhost:9000/writeOffCheese', null, {
                 params: {
                     cost: this.props.userData.score - e,
-                    _id: this.props.userData._id
+                    _id: this.props.userData._id,
+                    _goodId: goodId, 
+                    remainder: remainder - 1
                 }
             }).then((data) => console.log(data))
         }
@@ -62,7 +64,7 @@ export default class ShopScreen extends React.Component {
                     return (
                         <Card className="shopScreen_grid_item_card">
                             <CardContent>
-                                <img width="100" height="100" src="https://www.ikea.com/ru/ru/images/products/fanbyn-fanbyun-stul-belyy-d-doma-ulicy__0545007_pe655282_s5.jpg"></img>
+                                <img width="100" height="100" src={item._img}></img>
                             </CardContent>   
                             <CardContent className="shopScreen_grid_item_content">
                                 <Typography variant="h6" gutterBottom noWrap>{item._goodName}</Typography> 
@@ -70,8 +72,13 @@ export default class ShopScreen extends React.Component {
                                     {item._cost}
                                     <img src="/avas/cheese.svg"></img>
                                 </Typography>
-                                <Typography noWrap>{item._remainder} шт.</Typography>
-                                <Button size="small" color="primary" onClick={() => {this.checkScore(item._cost)}}>Купить</Button>
+                                {item._remainder === 0 ? ( 
+                                    <Typography noWrap>Нет в наличии</Typography>):""}
+                                {item._remainder > 0 ? (
+                                    <Typography noWrap>{item._remainder} шт.</Typography>):""}
+                                
+                                {item._remainder > 0 ? (
+                                    <Button size="small" color="primary" onClick={() => {this.checkScore(item._cost, item._goodId, item._remainder)}}>Купить</Button>):""}
                             </CardContent>
                         </Card>         
                     )

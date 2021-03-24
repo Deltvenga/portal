@@ -168,6 +168,12 @@ app.post('/writeOffCheese', (req, res) => {
     }, function(err, result){
         console.log(err)
     })
+    
+    GoodsModel.updateOne({_id: mongoose.Types.ObjectId(req.query._goodId)}, {
+        _remainder: req.query.remainder
+    }, function(err, result){
+        console.log(err)
+    })
 })
 app.use('/', require('./routes/Users'));
 const PORT = 9000;
