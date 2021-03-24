@@ -18,6 +18,12 @@ const UserSchema = new mongoose.Schema({
     },
     reachScore: {
         type: Number
+    },
+    role: {
+        type: String
+    },
+    password: {
+        type: String
     }
 });
 module.exports = mongoose.model('user', UserSchema);

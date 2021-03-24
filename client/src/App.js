@@ -26,6 +26,7 @@ import Typography from "@material-ui/core/Typography";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from '@material-ui/lab/Alert';
+import ControlScreen from "./ControlScreen/ControlScreen";
 
 export class App extends Component {
     constructor(props) {
@@ -106,50 +107,7 @@ export class App extends Component {
         }
         if (this.state.currentScreen === 'control') {
             return (
-                <div>
-                    <Accordion>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                        >
-                            <Typography>Добавить сотрудника</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <div>
-                                <TextField id="filled-basic" label="Имя" variant="filled"/><br/>
-                                <TextField id="filled-basic" label="Пароль" variant="filled"/><br/>
-                                <TextField id="filled-basic" label="E-mail" variant="filled"/>
-                                <InputLabel id="access-level">Type</InputLabel>
-                                <Select
-                                    labelId="access-level"
-                                    value={0}
-                                >
-                                    <MenuItem value={0}>Сотрудник</MenuItem>
-                                    <MenuItem value={20}>Администратор</MenuItem>
-                                </Select>
-                                <Button>
-                                    Добавить
-                                </Button>
-                            </div>
-                        </AccordionDetails>
-                    </Accordion>
-                    <Accordion>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel2a-content"
-                            id="panel2a-header"
-                        >
-                            <Typography>Выдать ачивку</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                                Процесс выдачи ачивки...
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
-
-                </div>
+                <ControlScreen/>
 
             );
         }

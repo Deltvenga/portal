@@ -174,7 +174,22 @@ app.post('/writeOffCheese', (req, res) => {
     }, function(err, result){
         console.log(err)
     })
-})
+});
+
+app.post('/createUser', (req, res) => {
+    User.create({
+        name: req.query.userName,
+        login: req.query.userEmail,
+        score: 0,
+        level: 1,
+        reachScore: 10,
+        role: req.query.role,
+        password: req.query.userPassword
+    }, function(err, result){
+        console.log(err)
+    });
+});
+
 app.use('/', require('./routes/Users'));
 const PORT = 9000;
 app.listen(PORT, () => console.log("server started"));
