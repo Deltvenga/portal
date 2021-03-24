@@ -11,11 +11,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
-
 import './ShopScreen.css';
-
 import CardActions from "@material-ui/core/CardActions";
 import Header from '../Common/Header'
+import axios from 'axios';
+
 export default class ShopScreen extends React.Component {
 
     constructor(props) {
@@ -39,8 +39,15 @@ export default class ShopScreen extends React.Component {
             console.log("err");
             this.setState({isErrorDialogOpen: true, altDialog: "Бомж", altDialogTitle: "Ошибка"})
         }
-        else this.setState({isErrorDialogOpen: true, altDialog: "Красава, заберешь у главного", altDialogTitle: "Молодец"})
-            
+        else {
+            this.setState({isErrorDialogOpen: true, altDialog: "Красава, заберешь у главного", altDialogTitle: "Молодец"});
+            axios.post('http://localhost:9000/writeOffCheese', null, {
+                params: {
+                    cost: this.props.userData.score - e,
+                    _id: this.props.userData._id
+                }
+            }).then((data) => console.log(data))
+        }
     }
     
     handleClose() {

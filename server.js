@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const multer = require("multer");
 const Task = require('./models/Task');
-
+const User = require('./models/User');
 app.use(cors());
 
 let clients = [];
@@ -162,6 +162,13 @@ app.get("/getAva", (req, res) => {
     });
 });
 
+app.post('/writeOffCheese', (req, res) => {
+    User.updateOne({_id: mongoose.Types.ObjectId(req.query._id)}, {
+        score: req.query.cost
+    }, function(err, result){
+        console.log(err)
+    })
+})
 app.use('/', require('./routes/Users'));
 const PORT = 9000;
 app.listen(PORT, () => console.log("server started"));
