@@ -193,6 +193,16 @@ app.post('/createUser', (req, res) => {
     });
 });
 
+app.post('/signIn', (req, res) => {
+    User.find({
+        login: req.query.login,
+        password: req.query.password
+    }, function(err, result){
+        console.log(result);
+        res.send(result)
+    })
+})
+
 app.use('/', require('./routes/Users'));
 const PORT = 9000;
 app.listen(PORT, () => console.log("server started"));

@@ -4,16 +4,19 @@ import MenuItem from "@material-ui/core/MenuItem";
 import './LeftMenu.css';
 import Avatar from "@material-ui/core/Avatar";
 import Menu from "@material-ui/core/Menu";
-
+import { Cookies } from 'react-cookie';
 
 export class LeftMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
             anchorEl: null,
+            userRole: ""
         }
         this.openUserMenu.bind(this);
         this.handleClose.bind(this);
+        this.cookies = new Cookies();
+        this.state.userRole = this.cookies.get('userRole');
     }
 
     openUserMenu(target) {
@@ -65,9 +68,11 @@ export class LeftMenu extends Component {
                     <MenuItem onClick={() => {
                         this.props.screenChanger('stats')
                     }}>Статистика</MenuItem>
-                    <MenuItem onClick={() => {
-                        this.props.screenChanger('control')
-                    }}>Управление</MenuItem>
+                    {this.state.userRole === 'admin' ? (
+                        <MenuItem onClick={() => {
+                            this.props.screenChanger('control')
+                        }}>Управление</MenuItem>    
+                    ):""}
                 </MenuList>
             </div>
         );

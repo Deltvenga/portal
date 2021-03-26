@@ -1,0 +1,17 @@
+.loginScreen-block{
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.loginScreen-block_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+.loginScreen-block_form div{
+    margin-bottom: 5px;
+}

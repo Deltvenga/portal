@@ -15,6 +15,8 @@ import UserList from "./UserList/UserList";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from '@material-ui/lab/Alert';
 import ControlScreen from "./ControlScreen/ControlScreen";
+import LoginScreen from "./LoginScreen/LoginScreen";
+import Cookies from 'universal-cookie';
 
 export class App extends Component {
     constructor(props) {
@@ -24,14 +26,19 @@ export class App extends Component {
             taskCount: 0,
             greenSnackText: '',
             serverNumber: 0,
-            currentScreen: 'taskScreen', // taskScreen, userProfile, usersList, shop, ...
+            currentScreen: 'loginScreen', // taskScreen, userProfile, usersList, shop, ...
             isTaskDialogOpen: false,
             goods: [],
             userScore: 0,
             imageId: 0,
             userLogin: "Ivanov@mail.ru",
-            userData: null
+            userData: null,
+            userId: "",
+            userRole: ""
         }
+        this.cookies = new Cookies();
+        this.state.userId = this.cookies.get('userId');
+        this.state.userRole = this.cookies.get('userRole');
         this.screenChanger.bind(this);
         this.loadUserData();
         this.subscribeToEvents();
@@ -170,47 +177,58 @@ export class App extends Component {
         this.setState({greenSnackOpen: false});
     }
 
-
+    getMainScreen(){
+        return(
+            <div>
+            <Header headerTitle={this.state.currentScreen}/>
+            <Snackbar open={this.state.greenSnackOpen} autoHideDuration={6000} onClose={() => {this.closeGreenSnack()}}>
+                <MuiAlert
+                    elevation={6}
+                    variant="filled"
+                    onClose={() => {this.closeGreenSnack()}}
+                    severity="success"
+                >
+                    {this.state.greenSnackText}
+                </MuiAlert>
+            </Snackbar>
+            <LeftMenu
+                changeImage={() => {
+                    this.changeImageState()
+                }}
+                imageId={this.state.imageId}
+                userId={this.state.userData && this.state.userData._id}
+                screenChanger={(newScreen) => {
+                    this.screenChanger(newScreen)
+                }}/>
+            <div className="App-mainBlock">
+                {this.getCurrentScreen()}
+            </div>
+            <div className="App-fab">
+                <Fab onClick={() => {
+                    this.setState({isTaskDialogOpen: true})
+                }} color="secondary" aria-label="edit">
+                    <EditIcon/>
+                </Fab>
+            </div>
+            <TaskDialog
+                isOpen={this.state.isTaskDialogOpen}
+                close={() => {
+                    this.setState({isTaskDialogOpen: false})
+                }}/>  
+            </div>
+        )
+    }
 
     render() {
         return (
             <div>
-                <Header headerTitle={this.state.currentScreen}/>
-                <Snackbar open={this.state.greenSnackOpen} autoHideDuration={6000} onClose={() => {this.closeGreenSnack()}}>
-                    <MuiAlert
-                        elevation={6}
-                        variant="filled"
-                        onClose={() => {this.closeGreenSnack()}}
-                        severity="success"
-                    >
-                        {this.state.greenSnackText}
-                    </MuiAlert>
-                </Snackbar>
-                <LeftMenu
-                    changeImage={() => {
-                        this.changeImageState()
-                    }}
-                    imageId={this.state.imageId}
-                    userId={this.state.userData && this.state.userData._id}
-                    screenChanger={(newScreen) => {
-                        this.screenChanger(newScreen)
-                    }}/>
-                <div className="App-mainBlock">
-                    {this.getCurrentScreen()}
-                </div>
-                <div className="App-fab">
-                    <Fab onClick={() => {
-                        this.setState({isTaskDialogOpen: true})
-                    }} color="secondary" aria-label="edit">
-                        <EditIcon/>
-                    </Fab>
-                </div>
-                <TaskDialog
-                    isOpen={this.state.isTaskDialogOpen}
-                    close={() => {
-                        this.setState({isTaskDialogOpen: false})
-                    }}/>
-            </div>
+                {this.state.currentScreen === 'loginScreen' ? (
+                    <LoginScreen goToMainScreen={() => {this.setState({currentScreen: 'taskScreen'})}}/>    
+                ):""}
+                {this.state.currentScreen !== 'loginScreen' ? (
+                    this.getMainScreen()
+                ):""}
+            </div> 
         );
     }
 }
