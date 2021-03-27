@@ -33,6 +33,7 @@ export default class LoginScreen extends Component {
             console.log(data.data);
             if (data.data.length !== 0){
                 this.cookies.set('userId', data.data[0]._id, { path: '/' });
+                this.cookies.set('userRole', data.data[0].role, { path: '/' });
                 this.props.goToMainScreen(data.data[0]);
             }
         })        
