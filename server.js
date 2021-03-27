@@ -157,11 +157,10 @@ app.get("/getAva", (req, res) => {
     fs.readdirSync(path.join(__dirname, `./uploads`)).forEach(file => {
         if (file.split(".")[0] === req.query.userId) {
             res.sendFile(path.join(__dirname, `./uploads/`, file));
-            return null;
-        } else {
-            res.send(undefined);
         }
-    });
+    }).then(() => {
+        res.send(undefined);
+    })
 });
 
 app.post('/writeOffCheese', (req, res) => {
