@@ -30,6 +30,7 @@ export class LeftMenu extends Component {
     deAuth() {
         this.cookies.remove('userId');
         this.cookies.remove('userRole');
+        this.props.screenChanger('loginScreen');
     }
     
     render() {
@@ -70,9 +71,6 @@ export class LeftMenu extends Component {
                     <MenuItem onClick={() => {
                         this.props.screenChanger('usersList')
                     }}>Сотрудники</MenuItem>
-                    <MenuItem onClick={() => {
-                        this.props.screenChanger('stats')
-                    }}>Статистика</MenuItem>
                     {this.state.userRole === 'admin' ? (
                         <MenuItem onClick={() => {
                             this.props.screenChanger('control')
@@ -85,3 +83,6 @@ export class LeftMenu extends Component {
 }
 
 export default LeftMenu;
+//<MenuItem onClick={() => {
+//                        this.props.screenChanger('stats')
+//                    }}>Статистика</MenuItem>
