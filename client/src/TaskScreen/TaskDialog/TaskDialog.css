@@ -1,3 +1,12 @@
 .App-TaskScreen-TaskDialog__InputBlock {
     margin: 12px;
 }
+
+.App-TaskScreen-TaskDialog__UserOption {
+    display: flex;
+}
+
+.App-TaskScreen-TaskDialog__UserOption-name {
+    line-height: 42px;
+    margin-left: 5px;
+}
