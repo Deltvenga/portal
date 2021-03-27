@@ -16,7 +16,9 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from '@material-ui/lab/Alert';
 import ControlScreen from "./ControlScreen/ControlScreen";
 import LoginScreen from "./LoginScreen/LoginScreen";
-import Cookies from 'react-cookie';
+import Cookies from 'universal-cookie';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Backdrop from "@material-ui/core/Backdrop";
 
 export class App extends Component {
     constructor(props) {
@@ -32,15 +34,22 @@ export class App extends Component {
             userScore: 0,
             imageId: 0,
             userLogin: "",
-            userData: null,
+            userName: "",
+            userData: {},
             userId: "",
-            userRole: ""
+            userRole: "",
+            isLoaded: false
         }
         this.cookies = new Cookies();
         this.state.userId = this.cookies.get('userId');
         this.state.userRole = this.cookies.get('userRole');
         this.screenChanger.bind(this);
-        this.loadUserData(this.state.userId);
+        if (this.state.userId) {
+            this.loadUserData(this.state.userId);
+        } else {
+            this.state.isLoaded = true;
+            this.state.userData = {};
+        }
         this.subscribeToEvents();
     }
 
@@ -126,9 +135,13 @@ export class App extends Component {
     subscribeToEvents() {
         const events = new EventSource('http://localhost:9000/events')
         events.addEventListener('newTask', (data) => {
-            if(data.lastEventId === (this.state.userData && this.state.userData._id)) {
+            if (data.lastEventId === (this.state.userData && this.state.userData._id)) {
                 const curData = JSON.parse(data.data);
-                this.setState({greenSnackText: curData.description, greenSnackOpen: true, taskCount: this.state.taskCount + 1});
+                this.setState({
+                    greenSnackText: curData.description,
+                    greenSnackOpen: true,
+                    taskCount: this.state.taskCount + 1
+                });
             }
         });
     }
@@ -159,6 +172,13 @@ export class App extends Component {
         }
     }
 
+    getUserName(data) {
+        if (data.name && data.surname) {
+            return data.name + " " + data.surname[0] + "."
+        }
+    }
+
+
     loadUserData(userId) {
         const self = this;
         axios.post('http://localhost:9000/getUserInfo', null, {
@@ -167,7 +187,13 @@ export class App extends Component {
             }
         }).then((data) => {
             console.log(data);
-            self.setState({userData: data.data[0]})
+            const newUserData = Object.assign({}, data.data[0]);
+            self.setState({
+                userData: newUserData,
+                currentScreen: 'taskScreen',
+                isLoaded: true,
+                userName: this.getUserName(newUserData)
+            });
         });
     }
 
@@ -175,45 +201,50 @@ export class App extends Component {
         this.setState({greenSnackOpen: false});
     }
 
-    getMainScreen(){
-        return(
+    getMainScreen() {
+        return (
             <div>
-            <Header headerTitle={this.state.currentScreen}/>
-            <Snackbar open={this.state.greenSnackOpen} autoHideDuration={6000} onClose={() => {this.closeGreenSnack()}}>
-                <MuiAlert
-                    elevation={6}
-                    variant="filled"
-                    onClose={() => {this.closeGreenSnack()}}
-                    severity="success"
-                >
-                    {this.state.greenSnackText}
-                </MuiAlert>
-            </Snackbar>
-            <LeftMenu
-                changeImage={() => {
-                    this.changeImageState()
-                }}
-                imageId={this.state.imageId}
-                userId={this.state.userData && this.state.userData._id}
-                screenChanger={(newScreen) => {
-                    this.screenChanger(newScreen)
-                }}
-                userData={this.state.userData}/>
-            <div className="App-mainBlock">
-                {this.getCurrentScreen()}
-            </div>
-            <div className="App-fab">
-                <Fab onClick={() => {
-                    this.setState({isTaskDialogOpen: true})
-                }} color="secondary" aria-label="edit">
-                    <EditIcon/>
-                </Fab>
-            </div>
-            <TaskDialog
-                isOpen={this.state.isTaskDialogOpen}
-                close={() => {
-                    this.setState({isTaskDialogOpen: false})
-                }}/>  
+                <Header headerTitle={this.state.currentScreen}/>
+                <Snackbar open={this.state.greenSnackOpen} autoHideDuration={6000} onClose={() => {
+                    this.closeGreenSnack()
+                }}>
+                    <MuiAlert
+                        elevation={6}
+                        variant="filled"
+                        onClose={() => {
+                            this.closeGreenSnack()
+                        }}
+                        severity="success"
+                    >
+                        {this.state.greenSnackText}
+                    </MuiAlert>
+                </Snackbar>
+                <LeftMenu
+                    changeImage={() => {
+                        this.changeImageState()
+                    }}
+                    imageId={this.state.imageId}
+                    userId={this.state.userData && this.state.userData._id}
+                    screenChanger={(newScreen) => {
+                        this.screenChanger(newScreen)
+                    }}
+                    userName={this.state.userName}
+                    userData={this.state.userData}/>
+                <div className="App-mainBlock">
+                    {this.getCurrentScreen()}
+                </div>
+                <div className="App-fab">
+                    <Fab onClick={() => {
+                        this.setState({isTaskDialogOpen: true})
+                    }} color="secondary" aria-label="edit">
+                        <EditIcon/>
+                    </Fab>
+                </div>
+                <TaskDialog
+                    isOpen={this.state.isTaskDialogOpen}
+                    close={() => {
+                        this.setState({isTaskDialogOpen: false})
+                    }}/>
             </div>
         )
     }
@@ -221,13 +252,18 @@ export class App extends Component {
     render() {
         return (
             <div>
+                <Backdrop className="test" open={!this.state.isLoaded}>
+                    <CircularProgress color="inherit"/>
+                </Backdrop>
                 {this.state.currentScreen === 'loginScreen' ? (
-                    <LoginScreen goToMainScreen={() => {this.setState({currentScreen: 'taskScreen'})}}/>    
-                ):""}
+                    <LoginScreen goToMainScreen={(data) => {
+                        this.setState({currentScreen: 'taskScreen', userData: data, userName: this.getUserName(data)});
+                    }}/>
+                ) : ""}
                 {this.state.currentScreen !== 'loginScreen' ? (
                     this.getMainScreen()
-                ):""}
-            </div> 
+                ) : ""}
+            </div>
         );
     }
 }

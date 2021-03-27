@@ -59,7 +59,7 @@ export class LeftMenu extends Component {
                             alt={this.props.userData.name}
                             src={this.props.userId ? `http://localhost:9000/getAva?userId=${this.props.userId}&imageId=${this.props.imageId}` : ''}
                         />
-                        <div className="App-LeftMenu__UserName">{this.props.userData.name + " " + this.props.userData.surname}</div>
+                        <div className="App-LeftMenu__UserName">{this.props.userName}</div>
                     </MenuItem>
                     <MenuItem onClick={() => {
                         this.props.screenChanger('taskScreen')

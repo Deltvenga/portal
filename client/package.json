@@ -40,6 +40,7 @@
     ]
   },
   "devDependencies": {
-    "react-cookie": "^4.0.3"
+    "react-cookie": "^4.0.3",
+    "universal-cookie": "^4.0.4"
   }
 }
