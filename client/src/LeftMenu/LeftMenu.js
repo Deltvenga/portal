@@ -26,7 +26,12 @@ export class LeftMenu extends Component {
     handleClose() {
         this.setState({anchorEl: null});
     }
-
+    
+    deAuth() {
+        this.cookies.remove('userId');
+        this.cookies.remove('userRole');
+    }
+    
     render() {
         return (
             <div className="App-LeftMenu">
@@ -44,17 +49,17 @@ export class LeftMenu extends Component {
                             this.props.screenChanger('userProfile')
                         }}>Профиль</MenuItem>
                         <MenuItem onClick={() => {
-                            this.handleClose()
+                            this.deAuth()
                         }}>Выйти</MenuItem>
                     </Menu>
                     <MenuItem onClick={(target) => {
                         this.openUserMenu(target)
                     }}>
                         <Avatar
-                            alt="Ivanov Ivan"
+                            alt={this.props.userData.name}
                             src={this.props.userId ? `http://localhost:9000/getAva?userId=${this.props.userId}&imageId=${this.props.imageId}` : ''}
                         />
-                        <div className="App-LeftMenu__UserName">Ivanov Ivan</div>
+                        <div className="App-LeftMenu__UserName">{this.props.userData.name + " " + this.props.userData.surname}</div>
                     </MenuItem>
                     <MenuItem onClick={() => {
                         this.props.screenChanger('taskScreen')

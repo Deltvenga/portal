@@ -16,7 +16,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from '@material-ui/lab/Alert';
 import ControlScreen from "./ControlScreen/ControlScreen";
 import LoginScreen from "./LoginScreen/LoginScreen";
-import Cookies from 'universal-cookie';
+import Cookies from 'react-cookie';
 
 export class App extends Component {
     constructor(props) {
@@ -31,7 +31,7 @@ export class App extends Component {
             goods: [],
             userScore: 0,
             imageId: 0,
-            userLogin: "Ivanov@mail.ru",
+            userLogin: "",
             userData: null,
             userId: "",
             userRole: ""
@@ -40,7 +40,7 @@ export class App extends Component {
         this.state.userId = this.cookies.get('userId');
         this.state.userRole = this.cookies.get('userRole');
         this.screenChanger.bind(this);
-        this.loadUserData();
+        this.loadUserData(this.state.userId);
         this.subscribeToEvents();
     }
 
@@ -159,19 +159,17 @@ export class App extends Component {
         }
     }
 
-    loadUserData() {
+    loadUserData(userId) {
         const self = this;
         axios.post('http://localhost:9000/getUserInfo', null, {
             params: {
-                login: 'Ivanov@mail.ru',
+                userId: userId,
             }
         }).then((data) => {
             console.log(data);
             self.setState({userData: data.data[0]})
         });
     }
-
-
 
     closeGreenSnack() {
         this.setState({greenSnackOpen: false});
@@ -199,7 +197,8 @@ export class App extends Component {
                 userId={this.state.userData && this.state.userData._id}
                 screenChanger={(newScreen) => {
                     this.screenChanger(newScreen)
-                }}/>
+                }}
+                userData={this.state.userData}/>
             <div className="App-mainBlock">
                 {this.getCurrentScreen()}
             </div>

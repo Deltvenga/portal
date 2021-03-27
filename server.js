@@ -198,10 +198,19 @@ app.post('/signIn', (req, res) => {
         login: req.query.login,
         password: req.query.password
     }, function(err, result){
-        console.log(result);
+        console.log("si", result);
         res.send(result)
     })
-})
+});
+
+app.post('/getUserInfo', (req, res) => {
+    User.find({
+        _id: mongoose.Types.ObjectId(req.query.userId)
+    }, function(err, result){
+        console.log("aa", result)
+        res.send(result)
+    })
+});
 
 app.use('/', require('./routes/Users'));
 const PORT = 9000;

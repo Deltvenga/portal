@@ -16,24 +16,24 @@ export default class Profile extends React.Component {
         this.state = {
             userData: null
         }
-        this.loadUserData();
+//        this.loadUserData();
     }
 
-    loadUserData() {
-        const self = this;
-        axios.post('http://localhost:9000/getUserInfo', null, {
-            params: {
-                login: 'Ivanov@mail.ru',
-            }
-        }).then((data) => {
-            console.log(data);
-            self.setState({userData: data.data[0]})
-        });
-    }
+//    loadUserData() {
+//        const self = this;
+//        axios.post('http://localhost:9000/getUserInfo', null, {
+//            params: {
+//                login: 'Ivanov@mail.ru',
+//            }
+//        }).then((data) => {
+//            console.log(data);
+//            self.setState({userData: data.data[0]})
+//        });
+//    }
 
     setUserData(userData) {
         if (userData) {
-            const keys = Object.keys(this.state.userData);
+            const keys = Object.keys(this.props.userData);
             const res = [];
             keys.forEach((key, index) => {
                 res.push(
@@ -79,16 +79,16 @@ export default class Profile extends React.Component {
                             <IconButton aria-label="upload picture" component="span">
                                 <Avatar
                                     className="App-ProfileAva"
-                                    alt="Ivanov Ivan"
+                                    alt={this.props.userData.name}
                                     src={this.props.userData._id ? `http://localhost:9000/getAva?userId=${this.props.userData._id}&imageId=${this.props.imageId}` : ''}
                                 />
                             </IconButton>
                         </label>
                         <div className='App-AvaInfo'>
-                            <span> E-mail: {this.state.userData ? this.state.userData.login: null}</span>
-                            <p>Уровень: {this.state.userData ? this.state.userData.level: null}</p>
-                            <p>Баланс: {this.state.userData ? this.state.userData.score: null}</p>
-                            <p>До следующего уровня: {this.state.userData ? this.state.userData.reachScore: null}</p>
+                            <span> E-mail: {this.props.userData.login}</span>
+                            <p>Уровень: {this.props.userData.level}</p>
+                            <p>Баланс: {this.props.userData.score}<img width="20" src="/avas/cheese.svg"></img></p>
+                            <p>До следующего уровня: {this.props.userData.reachScore}<img width="20" src="/avas/cheese.svg"></img></p>
                         </div>
                     </div>
                 </Paper>
