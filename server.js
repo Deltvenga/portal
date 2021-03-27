@@ -181,6 +181,7 @@ app.post('/writeOffCheese', (req, res) => {
 app.post('/createUser', (req, res) => {
     User.create({
         name: req.query.userName,
+        surname: req.query.userSurname,
         login: req.query.userEmail,
         score: 0,
         level: 1,

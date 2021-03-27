@@ -17,6 +17,7 @@ export default class ControlScreen extends React.Component {
         super(props);
         this.state = {
             userName: "",
+            userSurname: "",
             userPassword: "",
             userEmail: "",
             role: 0
@@ -40,6 +41,7 @@ export default class ControlScreen extends React.Component {
         axios.post('http://localhost:9000/createUser', null, {
             params: {
                 userName: this.state.userName,
+                userSurname: this.state.userSurname,
                 userPassword: this.state.userPassword,
                 userEmail: this.state.userEmail,
                 role: this.state.role
@@ -65,6 +67,12 @@ export default class ControlScreen extends React.Component {
                                 value={this.state.userName} 
                                 onChange={this.onInputChange}
                                 name="userName"/><br/>
+                            <TextField 
+                                id="filled-basic" 
+                                label="Фамилия" variant="filled" 
+                                value={this.state.userSurname} 
+                                onChange={this.onInputChange}
+                                name="userSurname"/><br/>
                             <TextField 
                                 id="filled-basic" 
                                 label="Пароль" 
