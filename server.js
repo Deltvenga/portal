@@ -154,11 +154,16 @@ app.post('/getTasks', (req, res) => {
 
 
 app.get("/getAva", (req, res) => {
-    fs.readdirSync(path.join(__dirname, `./uploads`)).forEach(file => {
-        if (file.split(".")[0] === req.query.userId) {
-            res.sendFile(path.join(__dirname, `./uploads/`, file));
-            return null;
-        } else {
+    let isImageSended = false;
+    fs.readdir(path.join(__dirname, `./uploads`), (err, files) => {
+        files.forEach(file => {
+            if (file.split(".")[0] === req.query.userId && !isImageSended) {
+                console.log('image found');
+                res.sendFile(path.join(__dirname, `./uploads/`, file));
+                isImageSended = true;
+            }
+        })
+        if (!isImageSended) {
             res.send(undefined);
         }
     });
@@ -167,13 +172,13 @@ app.get("/getAva", (req, res) => {
 app.post('/writeOffCheese', (req, res) => {
     User.updateOne({_id: mongoose.Types.ObjectId(req.query._id)}, {
         score: req.query.cost
-    }, function(err, result){
+    }, function (err, result) {
         console.log(err)
     })
-    
+
     GoodsModel.updateOne({_id: mongoose.Types.ObjectId(req.query._goodId)}, {
         _remainder: req.query.remainder
-    }, function(err, result){
+    }, function (err, result) {
         console.log(err)
     })
 });
@@ -188,9 +193,9 @@ app.post('/createUser', (req, res) => {
         reachScore: 10,
         role: req.query.role,
         password: req.query.userPassword
-    }, function(err, result){
+    }, function (err, result) {
         console.log(err)
-        res.send({success:true});
+        res.send({success: true});
     });
 });
 
@@ -198,7 +203,7 @@ app.post('/signIn', (req, res) => {
     User.find({
         login: req.query.login,
         password: req.query.password
-    }, function(err, result){
+    }, function (err, result) {
         console.log("si", result);
         res.send(result)
     })
@@ -207,7 +212,7 @@ app.post('/signIn', (req, res) => {
 app.post('/getUserInfo', (req, res) => {
     User.find({
         _id: mongoose.Types.ObjectId(req.query.userId)
-    }, function(err, result){
+    }, function (err, result) {
         console.log("aa", result)
         res.send(result)
     })
