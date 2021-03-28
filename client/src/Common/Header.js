@@ -150,7 +150,7 @@ export default function PrimarySearchAppBar(args) {
             <Helmet>
                 <title>{args.headerTitle ? HEADERS[args.headerTitle] : null}</title>
             </Helmet>
-            <AppBar position="fixed" className='App-Header'>
+            <AppBar position="static" className='App-Header'>
                 <Toolbar>
                     <Typography className={classes.title} variant="h6" noWrap>
                         {args.headerTitle ? HEADERS[args.headerTitle] : null}
