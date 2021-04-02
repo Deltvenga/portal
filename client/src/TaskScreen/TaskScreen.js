@@ -20,6 +20,10 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import green from "@material-ui/core/colors/green";
 import Header from '../Common/Header'
 import axios from "axios";
+import TextField from "@material-ui/core/TextField";
+import DialogActions from "@material-ui/core/DialogActions";
+import UserPicker from "../Common/UserPicker";
+
 
 
 export class TaskScreen extends Component {
@@ -135,6 +139,46 @@ export class TaskScreen extends Component {
                                     Закрыть
                                 </Button>
                             </CardActions>
+                        </Card>
+                        <Card>
+                            <CardContent>
+                                <Card>
+                                    <CardContent>
+                                        <TextField
+                                            fullWidth
+                                            label="Комментарий"
+                                        />
+                                        <Button fullWidth color="primary" >
+                                            Выполнить
+                                        </Button>
+                                        <Button color="secondary" fullWidth>
+                                            Уточнить
+                                        </Button>
+                                    </CardContent>
+                                </Card>
+                                <br/>
+                                <Card>
+                                    <CardContent>
+                                        <UserPicker curUserChanged={(data) => {this.setState({curUser: data});}}/>
+                                        <Button fullWidth color="primary" >
+                                            Переназначить
+                                        </Button>
+                                    </CardContent>
+                                </Card>
+                                <br/>
+                                <Card>
+                                    <CardContent>
+                                        <Button
+                                            color="secondary"
+                                            fullWidth
+                                            onClick={() => {
+                                                this.setState({isTaskOpened: false})
+                                            }}>
+                                            Закрыть
+                                        </Button>
+                                    </CardContent>
+                                </Card>
+                            </CardContent>
                         </Card>
                     </SwipeableDrawer>
                 ) : '' }

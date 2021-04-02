@@ -10,6 +10,7 @@ import "./TaskDialog.css"
 import axios from "axios";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import {Avatar} from "@material-ui/core";
+import UserPicker from "../../Common/UserPicker";
 
 export class TaskDialog extends Component {
     constructor(props) {
@@ -18,23 +19,31 @@ export class TaskDialog extends Component {
             usersListData: [],
             isAutoCompleteLoading: true,
             isAutoCompleteOpened: false,
-            curUser: ""
+            curUser: "",
+            taskDescription: '',
+            taskTitle: '',
+            currentEndDate: new Date()
         }
     }
 
-    handleClose() {
-        axios.post('http://localhost:9000/newTask', null, {
-            params: {
-                targetUserId: "6050c91025b4d348d59f8c88",
-                title: "тест отправки",
-                description: "тест описания",
-                ownerId: "6050c91025b4d348d59f8c88",
-                endDate: "03-18-21"
-            }
-        }).then((response) => {
-            console.log(response);
+    handleClose(isCancel) {
+        if(!isCancel) {
+            axios.post('http://localhost:9000/newTask', null, {
+                params: {
+                    targetUserId: this.state.curUser._id,
+                    title: this.state.taskTitle,
+                    description: this.state.taskDescription,
+                    ownerId: "6050c91025b4d348d59f8c88",
+                    endDate: this.state.currentEndDate
+                }
+            }).then((response) => {
+                console.log(response);
+                this.props.close();
+            })
+        } else {
             this.props.close();
-        })
+        }
+
     };
 
     handleOpen() {
@@ -55,9 +64,6 @@ export class TaskDialog extends Component {
         }
     }
 
-    curUserChanged(event, data) {
-        this.setState({curUser: data && data._id});
-    }
 
 
     render() {
@@ -79,6 +85,10 @@ export class TaskDialog extends Component {
                                 label="Заголовок задачи"
                                 fullWidth
                                 variant="outlined"
+                                value={this.state.taskTitle}
+                                onChange={(event) => {
+                                    this.setState({taskTitle: event.target.value})}
+                                }
                             />
                         </div>
                         <div className="App-TaskScreen-TaskDialog__InputBlock">
@@ -88,33 +98,16 @@ export class TaskDialog extends Component {
                                 multiline
                                 rows={4}
                                 variant="outlined"
+                                value={this.state.taskDescription}
+                                onChange={(event) => {
+                                    this.setState({taskDescription: event.target.value})}
+                                }
                                 fullWidth
                             />
                         </div>
                         <div className="App-TaskScreen-TaskDialog__InputBlock">
-                            <Autocomplete
-                                id="combo-box-demo"
-                                options={this.state.usersListData}
-                                loading={true}
-                                onOpen={() => {this.isAutocompleteOpened()}}
-                                getOptionLabel={(opt) => this.getName(opt, true) }
-                                onChange={(event,data) => {this.curUserChanged(event, data)}}
-                                renderOption={(option) => (
-                                    <React.Fragment>
-                                        <div className="App-TaskScreen-TaskDialog__UserOption">
-                                            <Avatar
-                                                src={option._id ? `http://localhost:9000/getAva?userId=${option._id}&imageId=${this.props.imageId}` : ''} />
-                                            <div className="App-TaskScreen-TaskDialog__UserOption-name">{this.getName(option)}</div>
-                                        </div>
-                                    </React.Fragment>
-                                )}
-                                style={{ width: "auto" }}
-                                renderInput={(params) =>
-                                    <TextField
-                                        {...params}
-                                        label="Исполнитель"
-                                        variant="outlined"
-                                    />}
+                            <UserPicker
+                                curUserChanged={(data) => {this.setState({curUser: data});}}
                             />
                         </div>
                         <div className="App-TaskScreen-TaskDialog__InputBlock">
@@ -133,7 +126,7 @@ export class TaskDialog extends Component {
                     </DialogContent>
                     <DialogActions>
                         <Button size="large" color="secondary" onClick={() => {
-                            this.handleClose()
+                            this.handleClose(true)
                         }}>
                             Отмена
                         </Button>
@@ -148,12 +141,6 @@ export class TaskDialog extends Component {
         );
     }
 
-    isAutocompleteOpened() {
-        this.setState({isAutoCompleteOpened: true});
-        axios.get('http://localhost:9000/getAllUsers', null).then((data) => {
-            this.setState({usersListData: data.data, isAutoCompleteLoading: false});
-        });
-    }
 }
 
 export default TaskDialog;
