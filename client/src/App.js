@@ -203,7 +203,7 @@ export class App extends Component {
 
     getMainScreen() {
         return (
-            <div>
+            <div style={{display:"flex"}}>
                 <Snackbar open={this.state.greenSnackOpen} autoHideDuration={6000} onClose={() => {
                     this.closeGreenSnack()
                 }}>

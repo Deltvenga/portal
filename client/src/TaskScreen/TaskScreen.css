@@ -45,3 +45,13 @@
 .App-TaskScreen-ListItem__endedTask {
     background-color: #e7f6e1 !important;
 }
+
+.App-TaskScreen__container {
+    width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+    .App-TaskScreen__container {
+        width: fit-content;
+    }
+}
