@@ -7,6 +7,7 @@ import Achieves from './Achieves';
 import Button from "@material-ui/core/Button";
 import {IconButton} from "@material-ui/core";
 import FormData from "form-data";
+import Header from "../Common/Header";
 
 
 export default class Profile extends React.Component {
@@ -66,6 +67,7 @@ export default class Profile extends React.Component {
     render() {
         return (
             <div>
+                <Header headerTitle={this.state.currentScreen}/>
                 <Paper elevation={3}>
                     <div className='App-AvaContainer'>
                         <input

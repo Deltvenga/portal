@@ -204,7 +204,6 @@ export class App extends Component {
     getMainScreen() {
         return (
             <div>
-                <Header headerTitle={this.state.currentScreen}/>
                 <Snackbar open={this.state.greenSnackOpen} autoHideDuration={6000} onClose={() => {
                     this.closeGreenSnack()
                 }}>
