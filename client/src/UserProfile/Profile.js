@@ -7,6 +7,7 @@ import Achieves from './Achieves';
 import Button from "@material-ui/core/Button";
 import {IconButton} from "@material-ui/core";
 import FormData from "form-data";
+import Header from "../Common/Header";
 
 
 export default class Profile extends React.Component {
@@ -15,34 +16,6 @@ export default class Profile extends React.Component {
         super(props);
         this.state = {
             userData: null
-        }
-//        this.loadUserData();
-    }
-
-//    loadUserData() {
-//        const self = this;
-//        axios.post('http://localhost:9000/getUserInfo', null, {
-//            params: {
-//                login: 'Ivanov@mail.ru',
-//            }
-//        }).then((data) => {
-//            console.log(data);
-//            self.setState({userData: data.data[0]})
-//        });
-//    }
-
-    setUserData(userData) {
-        if (userData) {
-            const keys = Object.keys(this.props.userData);
-            const res = [];
-            keys.forEach((key, index) => {
-                res.push(
-                    <div key={index}>
-                        {userData[key]};
-                    </div>
-                );
-            });
-            return res;
         }
     }
 
@@ -66,6 +39,7 @@ export default class Profile extends React.Component {
     render() {
         return (
             <div>
+                <Header headerTitle={this.state.currentScreen}/>
                 <Paper elevation={3}>
                     <div className='App-AvaContainer'>
                         <input
@@ -87,8 +61,8 @@ export default class Profile extends React.Component {
                         <div className='App-AvaInfo'>
                             <span> E-mail: {this.props.userData.login}</span>
                             <p>Уровень: {this.props.userData.level}</p>
-                            <p>Баланс: {this.props.userData.score}<img width="20" src="/avas/cheese.svg"></img></p>
-                            <p>До следующего уровня: {this.props.userData.reachScore}<img width="20" src="/avas/cheese.svg"></img></p>
+                            <p>Баланс: {this.props.userData.score}<img className="App-Profile__scoreIcon" width="20" src="/avas/cheese.svg"></img></p>
+                            <p>До следующего уровня: {this.props.userData.reachScore}<img className="App-Profile__scoreIcon" width="20" src="/avas/cheese.svg"></img></p>
                         </div>
                     </div>
                 </Paper>

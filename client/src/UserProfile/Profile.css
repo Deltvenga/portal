@@ -18,3 +18,14 @@
 .App-AvainputBlock {
     display: none;
 }
+
+.App-Profile__scoreIcon {
+    margin-left: 5px;
+}
+@media screen and (max-width: 900px) {
+    .App-ProfileAva {
+        height: 80px!important;
+        width: 80px!important;
+        margin: 15px;
+    }
+}

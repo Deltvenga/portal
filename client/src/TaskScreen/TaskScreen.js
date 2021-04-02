@@ -117,6 +117,7 @@ export class TaskScreen extends Component {
     render() {
         return (
             <div>
+                <Header headerTitle={this.state.currentScreen}/>
                 { this.state.curTask ? (
                     <SwipeableDrawer
                         anchor={'right'}

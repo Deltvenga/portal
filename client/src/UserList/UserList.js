@@ -10,6 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 import List from "@material-ui/core/List";
 import axios from "axios";
 import { Cookies } from 'react-cookie';
+import Header from "../Common/Header";
 
 const classes = {
     root: {
@@ -70,6 +71,7 @@ export default class Profile extends Component {
     render() {
         return (
             <div className={this.state.classes.root}>
+                <Header headerTitle={this.state.currentScreen}/>
                 <List>
                     {this.state.userData ? this.state.userData.map((user, index) => {
                         return this.loadListItem(user, index);

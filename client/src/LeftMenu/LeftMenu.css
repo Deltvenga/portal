@@ -9,3 +9,9 @@
 .App-LeftMenu__UserName {
     margin-left: 12px;
 }
+
+@media screen and (max-width: 900px) {
+    .App-LeftMenu {
+        width: 130px;
+    }
+}
